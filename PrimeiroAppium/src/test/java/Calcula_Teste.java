@@ -12,39 +12,39 @@ import java.net.URL;
 
 public class Calcula_Teste {
 
-    AppiumDriver driver;
+    AppiumDriver driver;      //variavel global
 
-    @BeforeTest
-    public void setUp() throws MalformedURLException {
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("platformName", "Android");
-        caps.setCapability("automationName", "UiAutomator2");
-        caps.setCapability("platformVersion", "9.0");
-        caps.setCapability("deviceName", "Android Emulator");
-        caps.setCapability("appPackage", "com.android.calculator2");
-        caps.setCapability("appActivity", ".Calculator");
-        driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps);
+    @BeforeTest               //Método que vem antes de qual quer ação
+    public void setUp() throws MalformedURLException {   //**
+        DesiredCapabilities caps = new DesiredCapabilities();   // valores envviados para o Appium servidor
+        caps.setCapability("platformName", "Android");  // mostrando qual plataforma usando
+        caps.setCapability("automationName", "UiAutomator2"); // inspeção de elementos
+        caps.setCapability("platformVersion", "9.0"); // versão do android
+        caps.setCapability("deviceName", "Android Emulator"); // nome do emulador
+        caps.setCapability("appPackage", "com.android.calculator2");//pacote de Info do app que vc quer que rode
+        caps.setCapability("appActivity", ".Calculator"); //Nome da atividade que você deseja iniciar a partir do pacote do Android
+        driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), caps); //redirecionando pro servidor do appium
     }
 
-    @Test
-    public void click_test() {
-        driver.findElement(By.id("digit_5")).click();
-        driver.findElement(By.id("op_add")).click();
-        driver.findElement(By.id("digit_5")).click();
-        driver.findElement(By.id("eq")).click();
-        driver.findElement(By.id("op_add")).click();
-        driver.findElement(By.id("digit_5")).click();
-        driver.findElement(By.id("op_add")).click();
-        driver.findElement(By.id("digit_5")).click();
-        driver.findElement(By.id("eq")).click();
+    @Test   // Ação do  teste
+    public void click_test() {    // variavel click
+        driver.findElement(By.id("digit_5")).click(); // encontrando elemento CLICK 5
+        driver.findElement(By.id("op_add")).click();// encontrando elemento CLICK SOMA(+)
+        driver.findElement(By.id("digit_5")).click();// encontrando elemento CLICK 5
+        driver.findElement(By.id("eq")).click(); // encontrando elemento IGUAL (=)
+        driver.findElement(By.id("op_add")).click();// encontrando elemento CLICK SOMA(+)
+        driver.findElement(By.id("digit_5")).click();// encontrando elemento CLICK 5
+        driver.findElement(By.id("op_add")).click();// encontrando elemento CLICK SOMA(+)
+        driver.findElement(By.id("digit_5")).click();// encontrando elemento CLICK 5
+        driver.findElement(By.id("eq")).click();// encontrando elemento IGUAL (=)
 
-        Assert.assertEquals(driver.findElement(By.id("result")).getText(),"20");
+        Assert.assertEquals(driver.findElement(By.id("result")).getText(),"20"); // validação
 
 
     }
 
-    @AfterTest
-    public void tearDown() {
+    @AfterTest  //método final, só vai executar depois de todos os outros serem finalizados
+    public void tearDown() {  // declarando variavel fechar
         if (null != driver) {
             driver.quit();
         }
